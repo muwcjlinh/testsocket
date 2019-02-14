@@ -1,5 +1,15 @@
 const WebSocket = require('ws');
+const express = require('express');
 
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('hello world');
+});
+
+app.listen(3000);
+
+// const wss = new WebSocket.Server({ port: 8080 }, () => {
 const wss = new WebSocket.Server({ port: 8080 }, () => {
     console.log("Signaling server is now listening on port 8080")
 });
