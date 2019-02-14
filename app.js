@@ -1,20 +1,14 @@
 const WebSocket = require('ws');
-const express = require('express');
+const http = require('http');
 
 const port = process.env.PORT ? process.env.PORT : 8080;
 
-const app = express();
-
-app.get('/', (req, res) => {
-    res.send('hello world');
+const server = http.createServer((req, res) => {
+    res.write('hello client');
+    res.end();
 });
 
-app.listen(port, () => {
-    console.log('HTTP server running on port:', port);
-});
-
-// const wss = new WebSocket.Server({ port: 8080 }, () => {
-const wss = new WebSocket.Server({ server: app }, () => {
+const wss = new WebSocket.Server({ server }, () => {
     console.log("Signaling server is now listening on port:", port)
 });
 
@@ -39,3 +33,5 @@ wss.on('connection', (ws) => {
         console.log(`Client disconnected. Total connected clients: ${wss.clients.size}`)
     }
 });
+
+server.listen(port);
