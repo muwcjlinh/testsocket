@@ -1,13 +1,17 @@
 const WebSocket = require('ws');
 const express = require('express');
 
+const port = process.env.PORT ? process.env.PORT : 3000;
+
 const app = express();
 
 app.get('/', (req, res) => {
     res.send('hello world');
 });
 
-app.listen(3000);
+app.listen(port, () => {
+    console.log('HTTP server running on port:', port);
+});
 
 // const wss = new WebSocket.Server({ port: 8080 }, () => {
 const wss = new WebSocket.Server({ port: 8080 }, () => {
